@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Network Traffic Data</title>
 </head>
 <body>
-    Flask App
+    <h1>Network Traffic Data</h1>
+    <h2>Countries Requested</h2>
+    <h4>{{country_ip_dict}}</h4>
+    
+    <h2>Traffic Data (Last 10 Minutes)</h2>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Sender IP</th>
+                <th>Destination IP</th>
+                <th>Protocol</th>
+                <th>Packet Count</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in traffic_data_list %}
+            <tr>
+                <td>{{ row.sender_ip }}</td>
+                <td>{{ row.destination_ip }}</td>
+                <td>{{ row.protocol }}</td>
+                <td>{{ row.packet_count }}</td>
+                <td>{{ row.timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
