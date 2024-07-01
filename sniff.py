@@ -109,9 +109,9 @@ def identify_application_protocol(packet):
         elif port == 123:
             return "NTP", port, "Safe"
     elif packet.haslayer(IP):
-        port = packet[IP].dport if hasattr(packet[IP], 'dport') else None
+        port = packet[IP].dport if hasattr(packet[IP], 'dport') else "Unknown"
         return "Unknown", port, "Safe"
-    return "Unknown", None, "Safe"
+    return "Unknown", "Unknown", "Safe"
 
 def process_packet(packet):
     if packet.haslayer(IP):
