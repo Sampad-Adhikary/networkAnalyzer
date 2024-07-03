@@ -4,7 +4,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-def get_recent_data(last_minutes=60):
+def get_recent_data(last_minutes=120):
     conn = sqlite3.connect('network_activity4.db')
     cursor = conn.cursor()
 
@@ -100,20 +100,30 @@ def get_country_data(country_name):
 
 @app.route('/', methods=['GET'])
 def index():
-    time_limit = request.args.get('id')
-    try:
-        if time_limit is not None and time_limit != '':
-            time_limit = int(time_limit) 
-        else:
-            time_limit = 60
-    except Exception as e:
-        time_limit = 60
-    country_ip_dict, traffic_data_list, mac_addr_packet_counts = get_recent_data(time_limit)
-    # print(mac_addr_packet_counts)
+    # time_limit = request.args.get('id')
+    # try:
+    #     if time_limit is not None and time_limit != '':
+    #         time_limit = int(time_limit) 
+    #     else:
+    #         time_limit = 120
+    # except Exception as e:
+    #     time_limit = 120
+    
+    country_ip_dict, traffic_data_list, mac_addr_packet_counts = get_recent_data(120)
+    print(mac_addr_packet_counts)
     traffic_volume_labels = list(mac_addr_packet_counts.keys())
     traffic_volume_values = []
     for label in traffic_volume_labels:
         traffic_volume_values.append(mac_addr_packet_counts[label])
+        
+    print(country_ip_dict)
+    
+    new_country = {}
+    countries = list(country_ip_dict.keys())
+    for country in countries:
+        cl = ['Netherlands','Germany']
+        if country not in cl:
+            new_country[country] = country_ip_dict[country]
     
     popular_countries_coordinates = {
         "United States": [37.0902, -95.7129],
@@ -170,8 +180,7 @@ def index():
     }
     
     # print(type(traffic_mapping))
-    for traffic in traffic_data_list:
-        print(traffic)        
+    for traffic in traffic_data_list:       
         destination_ip = traffic.get('destination_ip')
         if destination_ip:
             country = fetch_country(destination_ip)
@@ -179,7 +188,7 @@ def index():
             
         port = traffic.get('port')
         if port == 80 or port == '80':
-            print("found")
+
             traffic['flag'] = 'Blocked'
             traffic['country'] = 'China'
         elif traffic['country'] == 'Japan':
@@ -188,7 +197,7 @@ def index():
             traffic['flag'] = 'Allowed'
             
 
-    return render_template('index.html', country_ip_dict=country_ip_dict, traffic_data_list=traffic_data_list,pie_label=traffic_volume_labels,pie_series=traffic_volume_values, country_code=popular_countries_coordinates)
+    return render_template('index.html', country_ip_dict=new_country, traffic_data_list=traffic_data_list,pie_label=traffic_volume_labels,pie_series=traffic_volume_values, country_code=popular_countries_coordinates)
 
 def fetch_country(destination_ip):
     # Connect to your database (adjust the database path as necessary)
@@ -215,4 +224,4 @@ def findCountry():
     return jsonify(data)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
