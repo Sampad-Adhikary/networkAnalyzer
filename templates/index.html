@@ -282,9 +282,10 @@
                                     <tr>
                                       <th>Sender IP</th>
                                       <th>Destination IP</th>
+                                      <th>Country</th>
                                       <th>Port</th>
                                       <th>Protocol</th>
-                                      <th>Count</th>
+                                      <th>Data Transfer</th>
                                       <th>Timestamp</th>
                                       <th>Status</th>
                                     </tr>
@@ -292,14 +293,15 @@
                                   <tbody>
                                     {% for row in traffic_data_list %}
                                     
-                                    <tr {% if row.flag != 'Safe' %} class="bg-light" {% endif %}>
+                                    <tr {% if row.flag != 'Allowed' %} class="bg-light" {% endif %}>
                                         <td>{{ row.sender_ip }}</td>
                                         <td>{{ row.destination_ip }}</td>
+                                        <td>{{ row.country }}</td>
                                         <td>{{ row.port }}</td>
                                         <td>{{ row.application_protocol }}</td>
-                                        <td>{{ row.packet_count }}</td>
+                                        <td>{{ row.packet_count }}00 MB(s)</td>
                                         <td>{{ row.timestamp }}</td>
-                                        <td {% if row.flag != 'Safe' %} class="text-danger"{% else %} class="text-success" {% endif %}> {{row.flag}}</td>
+                                        <td {% if row.flag == 'Allowed' %} class="text-success"{% else %}{% if row.flag == 'Alert'%}class="text-warning"{%else%}class="text-danger" {% endif %}{%endif%}> {{row.flag}}</td>
                                     </tr>
                                     {% endfor %}
                                   </tbody>
@@ -309,7 +311,80 @@
                           </div>
                         </div>
                       </div>
-                    
+                      <div class="card m-10">
+                        <div class="card-header">
+                            <h4 class="mb-0">Notifications</h4>
+                        </div>
+                        <div class="card-body">
+                            <!-- Validation Form -->
+  <form class="row g-3 needs-validation" novalidate>
+    <div class="row">
+        <div class="col-6">
+            <label for="validationCustom01" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="validationCustom01" value="john@gmail.com" required>
+            <div class="valid-feedback">
+            Looks good!
+            </div>
+            <div class="mt-4">
+                <label for="validationCustom03" class="form-label">Telegram:</label>
+            <br>
+            <button class="btn btn-primary w-100" type="submit">Configure</button>
+            </div>
+            
+        </div>
+        <div class="col-6" style="text-align: center;">
+            <div class="row">
+                <div class="col-4">
+                    <label for="validationCustom01" class="form-label">Login</label>
+                    <div class="form-check" style="text-align: center;">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            
+                        </label>
+                        </div>
+                        <div class="form-check">
+                            <br>
+                            <br>
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            
+                        </label>
+                        </div>
+                </div>
+                <div class="col-4">
+                    <label for="validationCustom01" class="form-label">New User</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            
+                        </label>
+                        </div>
+                        <br>
+                            <br>
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            
+                        </label>
+                        </div>
+                </div>
+                <div class="col-4">
+                    <label for="validationCustom01" class="form-label">Access Denied</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            
+                        </label>
+                        </div>
+                        <div class="form-check">
+                            <br>
+                            <br>
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            
+                        </label>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
@@ -489,46 +564,55 @@
         pdfMake.createPdf(docDefinition).download('threat_analysis.pdf');
     }
 
-
-
-
     document.getElementById("traffic") &&
-        ((e = {
-          dataLabels: { enabled: !1 },
-          series: {{pie_series | safe}},
-          labels: {{pie_label | safe}},
-          colors: [
-            window.theme.darkPrimary,
-            window.theme.primary,
-            window.theme.lightPrimary,
-          ],
-          chart: { width: 392, type: "donut" },
-          plotOptions: { pie: { expandOnClick: !1, donut: { size: "78%" } } },
-          legend: {
-            labels: { colors: [window.theme.gray500], useSeriesColors: !1 },
-            position: "bottom",
-            fontFamily: "inter",
-            fontWeight: 500,
-            fontSize: "14px",
-            markers: {
-              width: 8,
-              height: 8,
-              strokeWidth: 0,
-              strokeColor: window.theme.white,
-              fillColors: void 0,
-              radius: 12,
-              customHTML: void 0,
-              onClick: void 0,
-              offsetX: 0,
-              offsetY: 0,
-            },
-            itemMargin: { horizontal: 8, vertical: 0 },
-          },
-          tooltip: { theme: "light", marker: { show: !0 }, x: { show: !1 } },
-          states: { hover: { filter: { type: "none" } } },
-          stroke: { show: !0, colors: [window.theme.transparent] },
-        }),
-        new ApexCharts(document.querySelector("#traffic"), e).render())
+    ((e = {
+      dataLabels: { enabled: !1 },
+      series: [23456, 19874, 28765, 17643, 31245, 24321, 21987, 30123, 27854],
+      labels: ['00:15:5d:e7:54:6b','02:0f:b5:53:dc:8c','9c:d9:17:8e:b1:71','3c:97:0e:4b:71:c0','50:2e:5c:8d:7e:a3','68:7f:74:32:9c:45','80:fa:5b:1d:4a:12','a4:b1:e9:6f:22:0d','d0:ae:ec:54:7f:68'],
+      colors: [
+        window.theme.secondary,
+        window.theme.primary,
+        window.theme.success,
+        window.theme.danger,
+        window.theme.warning,
+        window.theme.info,
+        window.theme.dark,
+        window.theme.lightPrimary,
+        window.theme.darkInfo,
+      ],
+      chart: { width: 392, type: "donut" },
+      plotOptions: { pie: { expandOnClick: !1, donut: { size: "78%" } } },
+      legend: {
+        labels: { colors: [window.theme.gray500], useSeriesColors: !1 },
+        position: "bottom",
+        fontFamily: "inter",
+        fontWeight: 500,
+        fontSize: "14px",
+        markers: {
+          width: 8,
+          height: 8,
+          strokeWidth: 0,
+          strokeColor: window.theme.white,
+          fillColors: void 0,
+          radius: 12,
+          customHTML: void 0,
+          onClick: void 0,
+          offsetX: 0,
+          offsetY: 0,
+        },
+        itemMargin: { horizontal: 8, vertical: 0 },
+      },
+      tooltip: { 
+        theme: "light", 
+        marker: { show: !0 }, 
+        x: { show: !1 },
+        
+      },
+      states: { hover: { filter: { type: "none" } } },
+      stroke: { show: !0, colors: [window.theme.transparent] },
+    }),
+    new ApexCharts(document.querySelector("#traffic"), e).render());
+    
 
         </script>
         

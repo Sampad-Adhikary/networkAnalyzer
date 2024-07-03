@@ -28,7 +28,7 @@ def get_recent_data(last_minutes=60):
     cursor.execute('''
         SELECT sender_ip, destination_ip, port, protocol, application_protocol, timestamp, flag
         FROM traffic_data
-        WHERE timestamp > ?
+        WHERE timestamp >  ? AND port != 'Unknown' AND protocol != 'Unknown'
         ORDER BY timestamp DESC
     ''', (ten_minutes_ago_str,))
     raw_traffic_data = cursor.fetchall()
@@ -168,9 +168,39 @@ def index():
         "Pakistan": [30.3753, 69.3451],
         "Bangladesh": [23.6858, 90.3563]
     }
+    
+    # print(type(traffic_mapping))
+    for traffic in traffic_data_list:
+        print(traffic)        
+        destination_ip = traffic.get('destination_ip')
+        if destination_ip:
+            country = fetch_country(destination_ip)
+            traffic['country'] = country
+            
+        port = traffic.get('port')
+        if port == 80 or port == '80':
+            print("found")
+            traffic['flag'] = 'Blocked'
+            traffic['country'] = 'China'
+        elif traffic['country'] == 'Japan':
+            traffic['flag'] = 'Alert'
+        else:
+            traffic['flag'] = 'Allowed'
+            
 
-     
     return render_template('index.html', country_ip_dict=country_ip_dict, traffic_data_list=traffic_data_list,pie_label=traffic_volume_labels,pie_series=traffic_volume_values, country_code=popular_countries_coordinates)
+
+def fetch_country(destination_ip):
+    # Connect to your database (adjust the database path as necessary)
+    conn = sqlite3.connect('network_activity4.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT country FROM destination_data WHERE destination_ip = ?", (destination_ip,))
+    result = cursor.fetchone()
+    if result:
+        return result[0]  # Assuming the country is the first column
+    else:
+        return "China"
+    return "China"
 
 @app.route('/country/', methods=['GET'])
 def findCountry():

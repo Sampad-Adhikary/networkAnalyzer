@@ -87,7 +87,7 @@ def identify_application_protocol(packet):
         if port == 22:
             return "SSH", port, "Unsafe"
         elif port == 80:
-            return "HTTP", port, "Safe"
+            return "HTTP", port, "Unsafe"
         elif port == 443:
             return "HTTPS", port, "Safe"
         elif port == 25:
