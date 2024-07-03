@@ -24,6 +24,14 @@
 <!-- Theme CSS -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.min.css') }}" >
 
+<style>
+    .btn3way{
+        padding: 0 !important;
+        font-size: 11px;
+        width: 3px !important;
+    }
+</style>
+
         <title>TrafficWardenX: OpenWRT Security & Monitoring</title>
     </head>
 
@@ -136,9 +144,9 @@
                                           Filter  
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                                          <a class="dropdown-item" href="/?id=120">Last 2 hour</a>
-                                          <a class="dropdown-item" href="/?id=180">Last 3 hour</a>
-                                          <a class="dropdown-item" href="/?id=240">Last 4 hour</a>
+                                          <a class="dropdown-item" href="/?id=120">Last 24 hours</a>
+                                          <a class="dropdown-item" href="/?id=180">Last 7 days</a>
+                                          <a class="dropdown-item" href="/?id=240">Last 30 days</a>
                                         </div>
                                       </div>
                                 </div>
@@ -150,38 +158,63 @@
                                 <!-- card -->
                                 <div class="card h-100  ">
                                     <!-- card header -->
-                                    <div class="card-header ">
-                                        <h4 class="mb-0">Users by Country</h4>
-                                    </div>
+                                        <div class="d-flex card-header row">
+                                            <div class="col-lg-6 col-md-8 col-8 ">
+                                                <h4 class="mb-0">Users by Country</h4>
+                                            </div>
+                                            
+                                            <div class="col-lg-6 col-md-4 col-4 btn-group" role="group">
+                                                <button id="btnGroupVerticalDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Countries  
+                                                </button>
+                                                <div class="dropdown-menu w-100" aria-labelledby="btnGroupVerticalDrop1" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                                  <div class="row"><div class="col-4"><a class="dropdown-item">India</a></div> <div class="col-8 btn-group" role="group" aria-label="Basic mixed styles example">
+                                                    <button type="button" class="btn btn-success btn3way">Allow</button>
+                                                    <button type="button" class="btn btn-warning btn3way">Alert</button>
+                                                    <button type="button" class="btn btn-danger btn3way">Block</button>
+                                                  </div></div>
+                                                  <a class="dropdown-item">India</a>
+                                                  <a class="dropdown-item">India</a>
+                                                  <a class="dropdown-item">India</a>
+                                                  <a class="dropdown-item">India</a>
+                                                  <a class="dropdown-item">India</a>
+                                                  <a class="dropdown-item">India</a>
+                                                  <a class="dropdown-item">India</a>
+                                                  <a class="dropdown-item">India</a>
+                                                  <a class="dropdown-item">India</a>
+                                                </div>
+                                              </div>
+                                              <div class="card-body">
+                                                <!-- map -->
+                                                <div id="locationmap" style="width: 100%; height: 300px"></div>
+                                                <!-- <table class="table table-sm table-borderless mt-3 mb-0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>United States</td>
+                                                            <td>22,120</td>
+                                                            <td>34.54%</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>India</td>
+                                                            <td>12,756</td>
+                                                            <td>22.43%</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>United Kingdom</td>
+                                                            <td>8,864</td>
+                                                            <td>34.54%</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Sweden</td>
+                                                            <td>6,749</td>
+                                                            <td>5.29%</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table> -->
+                                            </div>
+                                        </div>
                                     <!-- card body -->
-                                    <div class="card-body">
-                                        <!-- map -->
-                                        <div id="locationmap" style="width: 100%; height: 300px"></div>
-                                        <!-- <table class="table table-sm table-borderless mt-3 mb-0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>United States</td>
-                                                    <td>22,120</td>
-                                                    <td>34.54%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>India</td>
-                                                    <td>12,756</td>
-                                                    <td>22.43%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>United Kingdom</td>
-                                                    <td>8,864</td>
-                                                    <td>34.54%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Sweden</td>
-                                                    <td>6,749</td>
-                                                    <td>5.29%</td>
-                                                </tr>
-                                            </tbody>
-                                        </table> -->
-                                    </div>
+                                    
                                 </div>
                         </div>
                         <div class="col-xl-4 col-lg-12 col-md-12 col-12">
@@ -349,15 +382,18 @@
 
                 // Start processing countries
                 var marker = [];
+                console.log(marker[0]);
                 marker = processCountries();
                 console.log(marker)
+                marker.push({name: 'Russia', coords: [61.5240, 105.3188], code: 'Russia'});
+                marker.push({name: 'China', coords: [35.8617, 104.1954], code: 'China'});
                 document.getElementById("locationmap") &&
                     new jsVectorMap({
                         map: "world",
                         selector: "#locationmap",
                         zoomOnScroll: true,
                         zoomButtons: true,
-                        markersSelectable: true,
+                        markersSelectable: false,
                         markers: marker,
                         markerStyle: { initial: { fill: window.theme.primary } },
                         markerLabelStyle: {
