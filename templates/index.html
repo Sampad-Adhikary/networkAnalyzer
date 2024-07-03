@@ -24,12 +24,55 @@
 <!-- Theme CSS -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.min.css') }}" >
 
+<!-- font Awesome -->
+<script
+src="https://kit.fontawesome.com/7966715048.js"
+crossorigin="anonymous"
+></script>
+
 <style>
     .btn3way{
-        padding: 0 !important;
+        /* padding: 0 !important;
         font-size: 11px;
-        width: 3px !important;
+        width: 50px !important;
+        height: 30px; */
+        /* width: 50px; */
+        height: 10px;
+        width: 15px;
+        appearance: none;
+        background-color: #565454;
+        border-radius: 50%;
+        cursor: pointer;
+        opacity: 0;
+        cursor: pointer;
     }
+    .tri-state-toggle {
+    /* display: flex;
+    justify-content: center; */
+        border: 3px solid rgb(51, 50, 50);
+        border-radius: 50px;
+        /* font-size: 11px; */
+        width: 40px !important;
+        height: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    .tri-state-toggle  .one {
+    opacity: 1;
+    background-color: green;
+    }
+    .tri-state-toggle  .two {
+    /* opacity: 1; */
+    background-color: orange;
+    }
+    .tri-state-toggle  .three {
+    /* opacity: 1; */
+    background-color: red;
+    }
+
+
+
 </style>
 
         <title>TrafficWardenX: OpenWRT Security & Monitoring</title>
@@ -163,25 +206,103 @@
                                                 <h4 class="mb-0">Users by Country</h4>
                                             </div>
                                             
-                                            <div class="col-lg-6 col-md-4 col-4 btn-group" role="group">
-                                                <button id="btnGroupVerticalDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <div class="col-lg-6 col-md-4 col-4  " style="text-align: end;" role="group">
+                                                <button id="btnGroupVerticalDrop1" type="button" class="btn btn-outline-primary dropdown-toggle w-50" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                style="width: 300px;">
                                                   Countries  
                                                 </button>
-                                                <div class="dropdown-menu w-100" aria-labelledby="btnGroupVerticalDrop1" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                                                  <div class="row"><div class="col-4"><a class="dropdown-item">India</a></div> <div class="col-8 btn-group" role="group" aria-label="Basic mixed styles example">
-                                                    <button type="button" class="btn btn-success btn3way">Allow</button>
-                                                    <button type="button" class="btn btn-warning btn3way">Alert</button>
-                                                    <button type="button" class="btn btn-danger btn3way">Block</button>
-                                                  </div></div>
-                                                  <a class="dropdown-item">India</a>
-                                                  <a class="dropdown-item">India</a>
-                                                  <a class="dropdown-item">India</a>
-                                                  <a class="dropdown-item">India</a>
-                                                  <a class="dropdown-item">India</a>
-                                                  <a class="dropdown-item">India</a>
-                                                  <a class="dropdown-item">India</a>
-                                                  <a class="dropdown-item">India</a>
-                                                  <a class="dropdown-item">India</a>
+                                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="btnGroupVerticalDrop1" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left:100px; transform: translate3d(140px, 38px, 30px) !important; height: 200px; overflow-y: scroll; overflow-x: hidden; width: 210px; left: auto; right: 30px;">
+                                                  <div class="row ">
+                                                    <div class="col-7"><a class="dropdown-item">India</a></div>  
+                                                    <div class="col-5 btn-group text-right " role="group" aria-label="Basic mixed styles example">
+                                                    <div class="tri-state-toggle btnway">
+                                                        <input class="button btn3way one" type="radio" name="toggle" title="Allow" id="one" />
+                                                        <input class="button btn3way two " type="radio" name="toggle"  title="Alert" id="two" />
+                                                        <input class="button  btn3way three" type="radio" name="toggle" title="Block" id="three" />
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="row ">
+                                                    <div class="col-7"><a class="dropdown-item">Brazil</a></div>  
+                                                    <div class="col-5 btn-group text-right " role="group" aria-label="Basic mixed styles example">
+                                                    <div class="tri-state-toggle btnway">
+                                                        <input class="button btn3way one" type="radio" name="toggle" title="Allow" id="one" />
+                                                        <input class="button btn3way two " type="radio" name="toggle"  title="Alert" id="two" />
+                                                        <input class="button  btn3way three" type="radio" name="toggle" title="Block" id="three" />
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="row ">
+                                                    <div class="col-7"><a class="dropdown-item">China</a></div>  
+                                                    <div class="col-5 btn-group text-right " role="group" aria-label="Basic mixed styles example">
+                                                    <div class="tri-state-toggle btnway">
+                                                        <input class="button btn3way one" type="radio" name="toggle" title="Allow" id="one" style="opacity: 0 ;" />
+                                                        <input class="button btn3way two " type="radio" name="toggle"  title="Alert" id="two" style="opacity: 0 ;" />
+                                                        <input class="button  btn3way three " type="radio" name="toggle" title="Block" id="three" style="opacity: 1;" />
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="row ">
+                                                    <div class="col-7"><a class="dropdown-item">Russia</a></div>  
+                                                    <div class="col-5 btn-group text-right " role="group" aria-label="Basic mixed styles example">
+                                                    <div class="tri-state-toggle btnway">
+                                                        <input class="button btn3way one" type="radio" name="toggle" title="Allow" id="one" style="opacity: 0 ;" />
+                                                        <input class="button btn3way two " type="radio" name="toggle"  title="Alert" id="two" style="opacity: 1;" />
+                                                        <input class="button  btn3way three " type="radio" name="toggle" title="Block" id="three" style="opacity: 0 ;" />
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="row ">
+                                                    <div class="col-7"><a class="dropdown-item">United States</a></div>  
+                                                    <div class="col-5 btn-group text-right " role="group" aria-label="Basic mixed styles example">
+                                                    <div class="tri-state-toggle btnway">
+                                                        <input class="button btn3way one" type="radio" name="toggle" title="Allow" id="one" />
+                                                        <input class="button btn3way two " type="radio" name="toggle"  title="Alert" id="two" />
+                                                        <input class="button  btn3way three" type="radio" name="toggle" title="Block" id="three" />
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="row ">
+                                                    <div class="col-7"><a class="dropdown-item">Canada</a></div>  
+                                                    <div class="col-5 btn-group text-right " role="group" aria-label="Basic mixed styles example">
+                                                    <div class="tri-state-toggle btnway">
+                                                        <input class="button btn3way one" type="radio" name="toggle" title="Allow" id="one" />
+                                                        <input class="button btn3way two " type="radio" name="toggle"  title="Alert" id="two" />
+                                                        <input class="button  btn3way three" type="radio" name="toggle" title="Block" id="three" />
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="row ">
+                                                    <div class="col-7"><a class="dropdown-item">Japan</a></div>  
+                                                    <div class="col-5 btn-group text-right " role="group" aria-label="Basic mixed styles example">
+                                                    <div class="tri-state-toggle btnway">
+                                                        <input class="button btn3way one" type="radio" name="toggle" title="Allow" id="one" />
+                                                        <input class="button btn3way two " type="radio" name="toggle"  title="Alert" id="two" />
+                                                        <input class="button  btn3way three" type="radio" name="toggle" title="Block" id="three" />
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="row ">
+                                                    <div class="col-7"><a class="dropdown-item">Germany</a></div>  
+                                                    <div class="col-5 btn-group text-right " role="group" aria-label="Basic mixed styles example">
+                                                    <div class="tri-state-toggle btnway">
+                                                        <input class="button btn3way one" type="radio" name="toggle" title="Allow" id="one" />
+                                                        <input class="button btn3way two " type="radio" name="toggle"  title="Alert" id="two" />
+                                                        <input class="button  btn3way three" type="radio" name="toggle" title="Block" id="three" />
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="row ">
+                                                    <div class="col-7"><a class="dropdown-item">France</a></div>  
+                                                    <div class="col-5 btn-group text-right " role="group" aria-label="Basic mixed styles example">
+                                                    <div class="tri-state-toggle btnway">
+                                                        <input class="button btn3way one" type="radio" name="toggle" title="Allow" id="one" />
+                                                        <input class="button btn3way two " type="radio" name="toggle"  title="Alert" id="two" />
+                                                        <input class="button  btn3way three" type="radio" name="toggle" title="Block" id="three" />
+                                                      </div>
+                                                    </div>
+                                                  </div>
+
                                                 </div>
                                               </div>
                                               <div class="card-body">
@@ -309,7 +430,74 @@
                           </div>
                         </div>
                       </div>
-                    
+                      <div class="row">
+                        <!-- basic table -->
+                        <div class="col-md-12 col-12 mb-5">
+                          <div class="card">
+                            <!-- card header  -->
+                            <div class="card-header d-flex justify-content-between">
+                              <h4 class="mb-1">Login Logs </h4>
+                              <!-- <button class="btn btn-primary " onclick="exportTableToCSV()">Export</button> -->
+                              <div class="btn-group" role="group">
+                                <button id="btnGroupVerticalDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Export 
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                  <a class="dropdown-item" onclick="exportTableToCSV()">Export as CSV</a>
+                                  <a class="dropdown-item" onclick="exportToPdf()">Export as PDF</a>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- table  -->
+                            <div class="card-body">
+                              <div class="table-card">
+                                <table id="dataTableBasic2" class="table table-hover" style="width: 100%">
+                                  <thead class="table-light">
+                                    <tr>
+                                      <th>Login</th>
+                                      <th>IP Address</th>
+                                      <th>Timestamp</th>
+                                      <th>Status</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr >
+                                        <td>Luci</td>
+                                        <td>192.168.1.15</td>
+                                        <td>2024-07-03 14:23:45</td>
+                                        <td class="text-success ">Allowed</td>
+                                      </tr>
+                                      <tr class="bg-light">
+                                        <td>SSH</td>
+                                        <td>192.168.1.23</td>
+                                        <td>2024-07-03 13:52:11</td>
+                                        <td  class="text-danger">Blocked</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Luci</td>
+                                        <td>192.168.0.12</td>
+                                        <td>2024-07-03 13:30:24</td>
+                                        <td class="text-success">Allowed</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Luci</td>
+                                        <td>192.168.1.2</td>
+                                        <td>2024-07-03 12:45:33</td>
+                                        <td class="text-success">Allowed</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Luci</td>
+                                        <td>192.168.1.7</td>
+                                        <td>2024-07-03 12:15:12</td>
+                                        <td class="text-success">Allowed</td>
+                                      </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                 </div>
             </section>
         </main>
@@ -349,6 +537,68 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
+
+                    // var btn= buttons.getElementsByClassName("btn3way");
+
+                    // var arr = [...btn];
+                    //     arr.forEach((element, index) => {
+                    //     element.addEventListener("click", () => {
+
+                    //         element.style.opacity = "1";
+                    //         if (index == 0) {
+                    //             arr[1].style.opacity = "0";
+                    //             arr[2].style.opacity = "0";
+                    //             element.style.backgroundColor = "green";
+                    //         } else if (index == 1) {
+                    //             arr[0].style.opacity = "0";
+                    //             arr[2].style.opacity = "0";
+                                
+                    //             // document.getElementById("two").style.backgroundColor = "orange";
+                    //             element.style.backgroundColor = "orange";
+                    //         } else {
+                    //             arr[0].style.opacity = "0";
+                    //             arr[1].style.opacity = "0";
+                                
+                    //             document.getElementById("three").style.backgroundColor = "red";
+                    //             element.style.backgroundColor = "red";
+                    //         }
+
+                    //         // arr
+                    //         // .filter(function (item) {
+                    //         //     return item != element;
+                    //         // })
+                    //         // .forEach((item) => {
+                    //         //     item.style.opacity = "0";
+                    //         // });
+                    //     });
+                    //     });
+
+                var btnWay= document.querySelectorAll(".btnway");
+                btnWay.forEach(group => {
+  var buttons = group.getElementsByClassName('btn3way');
+  var arr = [...buttons];
+  
+  arr.forEach((element, index) => {
+    element.addEventListener('click', () => {
+      element.style.opacity = '1';
+      
+      if (index === 0) {
+        arr[1].style.opacity = '0';
+        arr[2].style.opacity = '0';
+        element.style.backgroundColor = 'green';
+      } else if (index === 1) {
+        arr[0].style.opacity = '0';
+        arr[2].style.opacity = '0';
+        element.style.backgroundColor = 'orange';
+      } else {
+        arr[0].style.opacity = '0';
+        arr[1].style.opacity = '0';
+        element.style.backgroundColor = 'red';
+      }
+    });
+  });
+});
+
                 var countryCount = {{country_ip_dict | safe}};
                 var countryCoords = {{country_code | safe}};
                 //console.log("Hello",countryCount);
@@ -529,6 +779,7 @@
           stroke: { show: !0, colors: [window.theme.transparent] },
         }),
         new ApexCharts(document.querySelector("#traffic"), e).render())
+
 
         </script>
         
